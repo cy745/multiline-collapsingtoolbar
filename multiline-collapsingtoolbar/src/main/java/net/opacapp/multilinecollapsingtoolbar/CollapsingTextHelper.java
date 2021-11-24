@@ -26,11 +26,6 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Build;
-import android.support.annotation.ColorInt;
-import android.support.v4.math.MathUtils;
-import android.support.v4.text.TextDirectionHeuristicsCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewCompat;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -39,10 +34,19 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Interpolator;
 
+import androidx.annotation.ColorInt;
+import androidx.core.math.MathUtils;
+import androidx.core.text.TextDirectionHeuristicsCompat;
+import androidx.core.view.GravityCompat;
+import androidx.core.view.ViewCompat;
+
 // BEGIN MODIFICATION: Added imports
 // END MODIFICATION
 
-final class CollapsingTextHelper {
+/**
+ * 修改了引用的依赖，使用了AndroidX包以替换support.v4包
+ */
+class CollapsingTextHelper {
 
     // Pre-JB-MR2 doesn't support HW accelerated canvas scaled text so we will workaround it
     // by using our own texture
@@ -217,24 +221,24 @@ final class CollapsingTextHelper {
 
     void setCollapsedTextAppearance(int resId) {
         TypedArray a = mView.getContext().obtainStyledAttributes(resId,
-                android.support.v7.appcompat.R.styleable.TextAppearance);
-        if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor)) {
+                R.styleable.TextAppearance);
+        if (a.hasValue(R.styleable.TextAppearance_android_textColor)) {
             mCollapsedTextColor = a.getColorStateList(
-                    android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor);
+                    R.styleable.TextAppearance_android_textColor);
         }
-        if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textSize)) {
+        if (a.hasValue(R.styleable.TextAppearance_android_textSize)) {
             mCollapsedTextSize = a.getDimensionPixelSize(
-                    android.support.v7.appcompat.R.styleable.TextAppearance_android_textSize,
+                    R.styleable.TextAppearance_android_textSize,
                     (int) mCollapsedTextSize);
         }
         mCollapsedShadowColor = a.getInt(
-                android.support.v7.appcompat.R.styleable.TextAppearance_android_shadowColor, 0);
+                R.styleable.TextAppearance_android_shadowColor, 0);
         mCollapsedShadowDx = a.getFloat(
-                android.support.v7.appcompat.R.styleable.TextAppearance_android_shadowDx, 0);
+                R.styleable.TextAppearance_android_shadowDx, 0);
         mCollapsedShadowDy = a.getFloat(
-                android.support.v7.appcompat.R.styleable.TextAppearance_android_shadowDy, 0);
+                R.styleable.TextAppearance_android_shadowDy, 0);
         mCollapsedShadowRadius = a.getFloat(
-                android.support.v7.appcompat.R.styleable.TextAppearance_android_shadowRadius, 0);
+                R.styleable.TextAppearance_android_shadowRadius, 0);
         a.recycle();
 
         if (Build.VERSION.SDK_INT >= 16) {
@@ -246,24 +250,24 @@ final class CollapsingTextHelper {
 
     void setExpandedTextAppearance(int resId) {
         TypedArray a = mView.getContext().obtainStyledAttributes(resId,
-                android.support.v7.appcompat.R.styleable.TextAppearance);
-        if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor)) {
+                R.styleable.TextAppearance);
+        if (a.hasValue(R.styleable.TextAppearance_android_textColor)) {
             mExpandedTextColor = a.getColorStateList(
-                    android.support.v7.appcompat.R.styleable.TextAppearance_android_textColor);
+                    R.styleable.TextAppearance_android_textColor);
         }
-        if (a.hasValue(android.support.v7.appcompat.R.styleable.TextAppearance_android_textSize)) {
+        if (a.hasValue(R.styleable.TextAppearance_android_textSize)) {
             mExpandedTextSize = a.getDimensionPixelSize(
-                    android.support.v7.appcompat.R.styleable.TextAppearance_android_textSize,
+                    R.styleable.TextAppearance_android_textSize,
                     (int) mExpandedTextSize);
         }
         mExpandedShadowColor = a.getInt(
-                android.support.v7.appcompat.R.styleable.TextAppearance_android_shadowColor, 0);
+                R.styleable.TextAppearance_android_shadowColor, 0);
         mExpandedShadowDx = a.getFloat(
-                android.support.v7.appcompat.R.styleable.TextAppearance_android_shadowDx, 0);
+                R.styleable.TextAppearance_android_shadowDx, 0);
         mExpandedShadowDy = a.getFloat(
-                android.support.v7.appcompat.R.styleable.TextAppearance_android_shadowDy, 0);
+                R.styleable.TextAppearance_android_shadowDy, 0);
         mExpandedShadowRadius = a.getFloat(
-                android.support.v7.appcompat.R.styleable.TextAppearance_android_shadowRadius, 0);
+                R.styleable.TextAppearance_android_shadowRadius, 0);
         a.recycle();
 
         if (Build.VERSION.SDK_INT >= 16) {
@@ -357,7 +361,7 @@ final class CollapsingTextHelper {
     /**
      * Set the value indicating the current scroll value. This decides how much of the
      * background will be displayed, as well as the title metrics/positioning.
-     *
+     * <p>
      * A value of {@code 0.0} indicates that the layout is fully expanded.
      * A value of {@code 1.0} indicates that the layout is fully collapsed.
      */
@@ -464,7 +468,7 @@ final class CollapsingTextHelper {
         // BEGIN MODIFICATION: set mTextToDrawCollapsed and calculate width using it
         mTextToDrawCollapsed = mTextToDraw;
         float width = mTextToDrawCollapsed != null ?
-            mTextPaint.measureText(mTextToDrawCollapsed, 0, mTextToDrawCollapsed.length()) : 0;
+                mTextPaint.measureText(mTextToDrawCollapsed, 0, mTextToDrawCollapsed.length()) : 0;
         // END MODIFICATION
 
         final int collapsedAbsGravity = GravityCompat.getAbsoluteGravity(mCollapsedTextGravity,
@@ -624,7 +628,7 @@ final class CollapsingTextHelper {
                 }
                 // Cross-section between both texts (should stay at alpha = 255)
                 mTextPaint.setAlpha(255);
-                canvas.drawText(tmp, 0, mTextLayout.getLineEnd(0) <= tmp.length() ? mTextLayout.getLineEnd(0) : tmp.length(), 0, -ascent / mScale, mTextPaint);
+                canvas.drawText(tmp, 0, Math.min(mTextLayout.getLineEnd(0), tmp.length()), 0, -ascent / mScale, mTextPaint);
                 // END MODIFICATION
             }
             // END MODIFICATION
@@ -788,7 +792,7 @@ final class CollapsingTextHelper {
             }
 
             mTextLayout = new StaticLayout(mTextToDraw, mTextPaint, (int) availableWidth,
-                alignment, lineSpacingMultiplier, lineSpacingExtra, false);
+                    alignment, lineSpacingMultiplier, lineSpacingExtra, false);
             // END MODIFICATION
         }
     }
@@ -946,7 +950,7 @@ final class CollapsingTextHelper {
     }
 
     private static float lerp(float startValue, float endValue, float fraction,
-            Interpolator interpolator) {
+                              Interpolator interpolator) {
         if (interpolator != null) {
             fraction = interpolator.getInterpolation(fraction);
         }
