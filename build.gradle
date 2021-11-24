@@ -14,3 +14,10 @@ allprojects {
         mavenCentral()
     }
 }
+
+ext {
+    groupId = 'net.opacapp'
+    artifactId = 'multiline-collapsingtoolbar'
+    libraryVersion = "27.1.1_alpha"
+    libraryVersionCode = 13
+}
