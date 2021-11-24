@@ -636,6 +636,27 @@ class CollapsingTextHelper {
         canvas.restoreToCount(saveCount);
     }
 
+    /**
+     * 复制原{@link #draw(Canvas)}方法，并添加了一个参数
+     *
+     * @param canvas 目标画板
+     * @param alpha  所需的文字透明度 (最高优先级)
+     */
+    public void draw(Canvas canvas, int alpha) {
+        // 记录原有的属性值
+        float tempExpanded = mExpandedTextBlend;
+        float tempCollapsed = mCollapsedTextBlend;
+
+        // 绘制前修改对应属性
+        mExpandedTextBlend = alpha / 255f;
+        mCollapsedTextBlend = alpha / 255f;
+        draw(canvas);
+
+        // 绘制完成恢复对应属性
+        mExpandedTextBlend = tempExpanded;
+        mCollapsedTextBlend = tempCollapsed;
+    }
+
     private boolean calculateIsRtl(CharSequence text) {
         final boolean defaultIsRtl = ViewCompat.getLayoutDirection(mView)
                 == ViewCompat.LAYOUT_DIRECTION_RTL;

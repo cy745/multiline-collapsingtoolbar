@@ -343,6 +343,23 @@ public class CollapsingToolbarLayout extends FrameLayout {
         return insets.consumeSystemWindowInsets();
     }
 
+    /**
+     * 实现自定义透明度
+     */
+    private boolean textAlpha = false;
+    private int textAlphaValue = 255;
+
+    /**
+     * 实现自定义配置文字的透明度
+     *
+     * @param textAlphaValue 传入透明度的值 [0,255]
+     */
+    public void textAlpha(int textAlphaValue) {
+        this.textAlpha = true;
+        this.textAlphaValue = textAlphaValue;
+        invalidate();
+    }
+
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
@@ -358,6 +375,17 @@ public class CollapsingToolbarLayout extends FrameLayout {
         // Let the collapsing text helper draw its text
         if (mCollapsingTitleEnabled && mDrawCollapsingTitle) {
             mCollapsingTextHelper.draw(canvas);
+        }
+
+        // Let the collapsing text helper draw its text
+        if (mCollapsingTitleEnabled && mDrawCollapsingTitle) {
+            // 判断是否需要让文字变透明
+            if (textAlpha || textAlphaValue == 0)
+                mCollapsingTextHelper.draw(canvas, textAlphaValue);
+            else mCollapsingTextHelper.draw(canvas);
+
+            // 绘制完成重置状态
+            textAlpha = false;
         }
 
         // Now draw the status bar scrim
