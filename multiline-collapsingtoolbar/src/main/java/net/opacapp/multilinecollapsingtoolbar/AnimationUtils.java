@@ -16,13 +16,17 @@
 
 package net.opacapp.multilinecollapsingtoolbar;
 
-import android.support.v4.view.animation.FastOutLinearInInterpolator;
-import android.support.v4.view.animation.FastOutSlowInInterpolator;
-import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
+import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
+
+/**
+ * 修改了引用的依赖，使用了AndroidX包以替换support.v4包
+ */
 class AnimationUtils {
 
     static final Interpolator LINEAR_INTERPOLATOR = new LinearInterpolator();

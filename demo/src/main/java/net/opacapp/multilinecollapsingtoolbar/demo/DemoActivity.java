@@ -1,10 +1,11 @@
 package net.opacapp.multilinecollapsingtoolbar.demo;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class DemoActivity extends AppCompatActivity {
 
