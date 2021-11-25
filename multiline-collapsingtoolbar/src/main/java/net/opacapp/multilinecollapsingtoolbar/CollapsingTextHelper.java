@@ -562,6 +562,15 @@ class CollapsingTextHelper {
                 fraction, mPositionInterpolator);
     }
 
+    /**
+     * 实现自定义透明度
+     */
+    private final TextAlphaHelper textAlphaHelper = new TextAlphaHelper();
+
+    public TextAlphaHelper getTextAlphaHelper() {
+        return textAlphaHelper;
+    }
+
     public void draw(Canvas canvas) {
         final int saveCount = canvas.save();
 
@@ -611,6 +620,7 @@ class CollapsingTextHelper {
                 canvas.translate(currentExpandedX, y);
                 // Expanded text
                 mTextPaint.setAlpha((int) (mExpandedTextBlend * 255));
+                textAlphaHelper.autoSetAlphaToTextPaint(mTextPaint);
                 mTextLayout.draw(canvas);
 
                 // position the overlays
@@ -618,6 +628,7 @@ class CollapsingTextHelper {
 
                 // Collapsed text
                 mTextPaint.setAlpha((int) (mCollapsedTextBlend * 255));
+                textAlphaHelper.autoSetAlphaToTextPaint(mTextPaint);
                 canvas.drawText(mTextToDrawCollapsed, 0, mTextToDrawCollapsed.length(), 0,
                         -ascent / mScale, mTextPaint);
                 // BEGIN MODIFICATION
@@ -628,33 +639,13 @@ class CollapsingTextHelper {
                 }
                 // Cross-section between both texts (should stay at alpha = 255)
                 mTextPaint.setAlpha(255);
+                textAlphaHelper.autoSetAlphaToTextPaint(mTextPaint);
                 canvas.drawText(tmp, 0, Math.min(mTextLayout.getLineEnd(0), tmp.length()), 0, -ascent / mScale, mTextPaint);
                 // END MODIFICATION
             }
             // END MODIFICATION
         }
         canvas.restoreToCount(saveCount);
-    }
-
-    /**
-     * 复制原{@link #draw(Canvas)}方法，并添加了一个参数
-     *
-     * @param canvas 目标画板
-     * @param alpha  所需的文字透明度 (最高优先级)
-     */
-    public void draw(Canvas canvas, int alpha) {
-        // 记录原有的属性值
-        float tempExpanded = mExpandedTextBlend;
-        float tempCollapsed = mCollapsedTextBlend;
-
-        // 绘制前修改对应属性
-        mExpandedTextBlend = alpha / 255f;
-        mCollapsedTextBlend = alpha / 255f;
-        draw(canvas);
-
-        // 绘制完成恢复对应属性
-        mExpandedTextBlend = tempExpanded;
-        mCollapsedTextBlend = tempCollapsed;
     }
 
     private boolean calculateIsRtl(CharSequence text) {

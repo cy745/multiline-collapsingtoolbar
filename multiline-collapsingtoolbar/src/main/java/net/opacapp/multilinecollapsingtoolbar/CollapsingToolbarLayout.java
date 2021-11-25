@@ -106,7 +106,6 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
  * @attr ref android.support.design.R.styleable#CollapsingToolbarLayout_toolbarId
  * <p>
  * 修改了引用的依赖，使用了AndroidX包以替换support.v4包
- * 添加了{@link #textAlpha(int)}方法，以实现对文字透明度的自定义配置
  */
 public class CollapsingToolbarLayout extends FrameLayout {
 
@@ -343,21 +342,8 @@ public class CollapsingToolbarLayout extends FrameLayout {
         return insets.consumeSystemWindowInsets();
     }
 
-    /**
-     * 实现自定义透明度
-     */
-    private boolean textAlpha = false;
-    private int textAlphaValue = 255;
-
-    /**
-     * 实现自定义配置文字的透明度
-     *
-     * @param textAlphaValue 传入透明度的值 [0,255]
-     */
-    public void textAlpha(int textAlphaValue) {
-        this.textAlpha = true;
-        this.textAlphaValue = textAlphaValue;
-        invalidate();
+    public TextAlphaHelper getTextAlphaHelper() {
+        return mCollapsingTextHelper.getTextAlphaHelper();
     }
 
     @Override
@@ -375,17 +361,6 @@ public class CollapsingToolbarLayout extends FrameLayout {
         // Let the collapsing text helper draw its text
         if (mCollapsingTitleEnabled && mDrawCollapsingTitle) {
             mCollapsingTextHelper.draw(canvas);
-        }
-
-        // Let the collapsing text helper draw its text
-        if (mCollapsingTitleEnabled && mDrawCollapsingTitle) {
-            // 判断是否需要让文字变透明
-            if (textAlpha || textAlphaValue == 0)
-                mCollapsingTextHelper.draw(canvas, textAlphaValue);
-            else mCollapsingTextHelper.draw(canvas);
-
-            // 绘制完成重置状态
-            textAlpha = false;
         }
 
         // Now draw the status bar scrim
