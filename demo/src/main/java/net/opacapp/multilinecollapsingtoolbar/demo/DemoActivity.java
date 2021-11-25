@@ -7,14 +7,27 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.material.appbar.AppBarLayout;
+
+import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
+
 public class DemoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        AppBarLayout appBarLayout = findViewById(R.id.appbarLayout);
+        CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsingToolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        appBarLayout.addOnOffsetChangedListener((appBarLayout1, verticalOffset) -> {
+            float value = 1f + (float) verticalOffset / (float) appBarLayout1.getTotalScrollRange();
+            int result = (int) (value * 255);
+            collapsingToolbar.getTextAlphaHelper().updateTextAlpha(result);
+        });
     }
 
     @Override

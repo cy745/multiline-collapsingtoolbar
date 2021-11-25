@@ -8,6 +8,7 @@
     tools:context="net.opacapp.multilinecollapsingtoolbar.demo.DemoActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarLayout"
         android:layout_width="match_parent"
         android:layout_height="192dp"
         android:theme="@style/AppTheme.AppBarOverlay"
@@ -15,6 +16,7 @@
         android:fitsSystemWindows="true">
 
         <net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:theme="@style/AppTheme.AppBarOverlay"
