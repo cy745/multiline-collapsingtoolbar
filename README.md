@@ -1,4 +1,7 @@
-# multiline-collapsingtoolbar [ ![Download](https://api.bintray.com/packages/opacapp/libs/multiline-collapsingtoolbar/images/download.svg) ](https://bintray.com/opacapp/libs/multiline-collapsingtoolbar/_latestVersion)
+# multiline-collapsingtoolbar
+
+[![](https://jitpack.io/v/cy745/multiline-collapsingtoolbar.svg)](https://jitpack.io/#cy745/multiline-collapsingtoolbar)
+
 _multiline-collapsingtoolbar_ is a replacement for `CollapsingToolbarLayout` from the [Android
 Design Support Library](https://github.com/android/platform_frameworks_support/tree/master/design)
 which can deal with multiline titles (with a customizable maximum number of lines) in the
@@ -21,7 +24,7 @@ adding a new dependency statement.
 
 ```gradle
 dependencies {
-    compile 'net.opacapp:multiline-collapsingtoolbar:27.1.1'
+    implement 'com.github.cy745:multiline-collapsingtoolbar:1.7.3'
 }
 ```
 
