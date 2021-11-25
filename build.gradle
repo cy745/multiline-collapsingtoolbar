@@ -21,6 +21,6 @@ allprojects {
 ext {
     groupId = 'net.opacapp'
     artifactId = 'multiline-collapsingtoolbar'
-    libraryVersion = "1.7.2"
-    libraryVersionCode = 14
+    libraryVersion = "1.7.3"
+    libraryVersionCode = 15
 }

@@ -6,11 +6,11 @@ public class TextAlphaHelper {
     /**
      * 实现自定义透明度
      */
-    private boolean textAlpha = true;
+    private boolean textAlpha = false;
     private int textAlphaValue = 255;
 
     public void updateTextAlpha(int value) {
-        this.textAlpha = value >= 0 && value <= 255;
+        this.textAlpha = value >= 0 && value < 255;
         this.textAlphaValue = value;
     }
 

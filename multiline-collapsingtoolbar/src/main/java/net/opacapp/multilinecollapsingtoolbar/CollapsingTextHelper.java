@@ -628,7 +628,6 @@ class CollapsingTextHelper {
 
                 // Collapsed text
                 mTextPaint.setAlpha((int) (mCollapsedTextBlend * 255));
-                textAlphaHelper.autoSetAlphaToTextPaint(mTextPaint);
                 canvas.drawText(mTextToDrawCollapsed, 0, mTextToDrawCollapsed.length(), 0,
                         -ascent / mScale, mTextPaint);
                 // BEGIN MODIFICATION
